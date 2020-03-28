@@ -24,36 +24,6 @@ class _TransactionUserState extends State<TransactionUser> {
       value: 211,
       date: DateTime.now(),
     ),
-    Transaction(
-      id: '25',
-      title: 'Conta #05',
-      value: 211,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: '24',
-      title: 'Conta #04',
-      value: 211,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: '23',
-      title: 'Conta #03',
-      value: 211,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: '22',
-      title: 'Conta #02',
-      value: 211,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: '21',
-      title: 'Conta #01',
-      value: 211,
-      date: DateTime.now(),
-    ),
   ];
 
   _addTransaction(String title, double value) {
