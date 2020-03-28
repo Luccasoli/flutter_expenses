@@ -26,18 +26,16 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: Text('Home'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            // Gráfico
-            Card(
-              child: Text('Gráfico'),
-            ),
-            // Lista de Despesas
-            TransactionUser(),
-          ],
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          // Gráfico
+          Card(
+            child: Text('Gráfico'),
+          ),
+          // Lista de Despesas
+          TransactionUser(),
+        ],
       ),
     );
   }
