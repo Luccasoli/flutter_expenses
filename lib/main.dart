@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:expenses/components/chart.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:expenses/components/transaction_list.dart';
 import 'package:expenses/models/Transaction.dart';
@@ -48,20 +49,33 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final _transactions = [
+  final List<Transaction> _transactions = [
+    Transaction(
+      id: '0',
+      title: 'Conta Antiga',
+      value: 400,
+      date: DateTime.now().subtract(Duration(days: 44)),
+    ),
     Transaction(
       id: '1',
       title: 'Novo tênis de corrida dddd',
       value: 310.30,
-      date: DateTime.now(),
+      date: DateTime.now().subtract(Duration(days: 4)),
     ),
     Transaction(
       id: '26',
       title: 'Conta #06',
       value: 211,
-      date: DateTime.now(),
+      date: DateTime.now().subtract(Duration(days: 3)),
     ),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((transaction) {
+      return transaction.date
+          .isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
 
   void _addTransaction(String title, double value) {
     final newTransaction = Transaction(
@@ -80,6 +94,7 @@ class _HomeState extends State<Home> {
 
   void _openTransactionFormModal(context) {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (context) {
         return TransactionForm(_addTransaction);
@@ -105,9 +120,7 @@ class _HomeState extends State<Home> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           // Gráfico
-          Card(
-            child: Text('Gráfico'),
-          ),
+          Chart(_recentTransactions),
           // Lista de Despesas
           TransactionList(_transactions),
         ],
