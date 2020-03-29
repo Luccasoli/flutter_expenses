@@ -19,14 +19,18 @@ class ExpensesApp extends StatelessWidget {
       home: Home(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        accentColor: Colors.amber,
+        primarySwatch: Colors.deepOrange,
+        accentColor: Colors.blue,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
               title: TextStyle(
                 fontFamily: 'OpenSans',
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
+              ),
+              button: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
             ),
         appBarTheme: AppBarTheme(
@@ -49,26 +53,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<Transaction> _transactions = [
-    Transaction(
-      id: '0',
-      title: 'Conta Antiga',
-      value: 400,
-      date: DateTime.now().subtract(Duration(days: 44)),
-    ),
-    Transaction(
-      id: '1',
-      title: 'Novo tênis de corrida dddd',
-      value: 310.30,
-      date: DateTime.now().subtract(Duration(days: 4)),
-    ),
-    Transaction(
-      id: '26',
-      title: 'Conta #06',
-      value: 211,
-      date: DateTime.now().subtract(Duration(days: 3)),
-    ),
-  ];
+  final List<Transaction> _transactions = [];
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((transaction) {
@@ -77,12 +62,12 @@ class _HomeState extends State<Home> {
     }).toList();
   }
 
-  void _addTransaction(String title, double value) {
+  void _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(() {
@@ -90,6 +75,14 @@ class _HomeState extends State<Home> {
     });
 
     Navigator.of(context).pop();
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere(
+        (transaction) => transaction.id == id,
+      );
+    });
   }
 
   void _openTransactionFormModal(context) {
@@ -122,7 +115,7 @@ class _HomeState extends State<Home> {
           // Gráfico
           Chart(_recentTransactions),
           // Lista de Despesas
-          TransactionList(_transactions),
+          TransactionList(_transactions, _deleteTransaction),
         ],
       ),
       floatingActionButton: FloatingActionButton(
