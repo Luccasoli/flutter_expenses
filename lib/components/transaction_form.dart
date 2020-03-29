@@ -27,8 +27,14 @@ class _TransactionFormState extends State<TransactionForm> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.35 +
+            MediaQuery.of(context).viewInsets.bottom,
+        padding: EdgeInsets.only(
+            left: 10,
+            right: 10,
+            top: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Column(
           children: <Widget>[
             TextField(
